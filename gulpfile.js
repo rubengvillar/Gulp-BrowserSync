@@ -2,14 +2,15 @@
 'use strict';
 
 // importación de los modulos necesarios.
-import gulp from "gulp";
-import sass from "gulp-sass";
-import autoprefixer  from "gulp-autoprefixer";
-import pug from "gulp-pug";
-import babel from "gulp-babel";
-import browserSync from "browser-sync";
+const gulp = require("gulp"),
+    sass = require("gulp-sass"),
+    autoprefixer  = require("gulp-autoprefixer"),
+    pug = require("gulp-pug"),
+    babel = require("gulp-babel"),
+    browserSync = require("browser-sync");
+
 // instanciamos la funcion create de browserSync y re asignamos en la misma variable.
-browserSync = browserSync.create();
+let bs = browserSync.create();
 
 // Variable que nos ayudara a definira si le pasamos a la linea de comandos si compilamos en modo producción.
 let IsProduction = getArg("--env") === "production";
@@ -78,7 +79,7 @@ gulp.task('sass', ()=>{
         .pipe(autoprefixer(options.autoprefixer))
         .pipe(gulp.dest(`${dir.build}/css/`))
         // injectar css en BrowserSync
-        .pipe(browserSync.stream());
+        .pipe(bs.stream());
 });
 
 // Tarea encargada de preprocesar JavaScript a ES5
@@ -90,7 +91,7 @@ gulp.task('es6', ()=>{
 
 // Tarea encargada de crear e servidor de browserSync y preprocesar por si hubo un cambio previo
 gulp.task('serve', ['pug', 'sass', 'es6'], ()=> {
-    browserSync.init(options.browsersync);
+    bs.init(options.browsersync);
 });
 
 // Tarea por defecto de gulp encargada de ejecutar nuestras configuracines.
@@ -117,7 +118,7 @@ gulp.task('default', ()=> {
 
 // funcion encargada de recargar el navegador.
 function reload(){
-    return browserSync.reload();
+    return bs.reload();
 }
 
 // funcion encargada de decirnos donde se realizo el cambio.
