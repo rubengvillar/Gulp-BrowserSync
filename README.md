@@ -1,4 +1,5 @@
-## Gulp + BrowserSync [Beta]
+## Gulp + BrowserSync 
+### [Repositorio en version Beta]
 
 Este proyecto cuenta con una configuracion basica de gulp y browsersync el cual solo tenemos 2 modos desarrollo y producción. con instalar los paquetes con npm.
 
